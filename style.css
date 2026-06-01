@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --amber: rgba(200, 175, 60, 1);
+  --amber-dim: rgba(200, 175, 60, 0.5);
+  --amber-faint: rgba(200, 175, 60, 0.15);
+  --amber-ghost: rgba(200, 175, 60, 0.07);
+  --bg: #0a0800;
+  --font: 'Share Tech Mono', monospace;
+}
+
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+
+/* ─── LOADING ─────────────────────────────────────── */
+#loading-screen {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; transition: opacity .8s;
+}
+#loading-inner { text-align: center; font-family: var(--font); }
+#loading-title { font-size: 32px; color: var(--amber); letter-spacing: 8px; margin-bottom: 8px; }
+#loading-sub { font-size: 12px; color: var(--amber-dim); letter-spacing: 4px; margin-bottom: 40px; }
+#loading-bar-wrap { width: 240px; height: 1px; background: var(--amber-faint); margin: 0 auto 16px; }
+#loading-bar { height: 1px; background: var(--amber); width: 0%; transition: width .3s; }
+#loading-status { font-size: 10px; color: var(--amber-dim); letter-spacing: 3px; }
+
+/* ─── NAME SCREEN ─────────────────────────────────── */
+#name-screen {
+  position: fixed; inset: 0; background: var(--bg);
+  display: none; align-items: center; justify-content: center;
+  z-index: 90;
+}
+#name-inner {
+  text-align: center; font-family: var(--font);
+  display: flex; flex-direction: column; gap: 16px; max-width: 320px; width: 90%;
+}
+.ns-title { font-size: 22px; color: var(--amber); letter-spacing: 4px; }
+.ns-sub { font-size: 13px; color: var(--amber-dim); letter-spacing: 2px; }
+#name-input {
+  background: var(--amber-ghost); border: .5px solid var(--amber-faint);
+  border-bottom: 1px solid var(--amber-dim);
+  color: var(--amber); font-family: var(--font); font-size: 16px;
+  padding: 12px 14px; outline: none; text-align: center; letter-spacing: 2px;
+}
+#name-input:focus { border-bottom-color: var(--amber); }
+#name-btn {
+  background: transparent; border: .5px solid var(--amber-dim);
+  color: var(--amber); font-family: var(--font); font-size: 13px;
+  padding: 12px; cursor: pointer; letter-spacing: 3px; transition: all .2s;
+}
+#name-btn:hover { background: var(--amber-ghost); border-color: var(--amber); }
+.ns-warn { font-size: 10px; color: rgba(200, 175, 60, .25); letter-spacing: 2px; line-height: 1.8; }
+
+/* ─── GAME ────────────────────────────────────────── */
+#game { position: fixed; inset: 0; }
+#c { display: block; width: 100%; height: 100%; }
+
+/* HUD */
+#hud { position: absolute; top: 0; left: 0; width: 100%; pointer-events: none; }
+#coords {
+  position: absolute; top: 16px; left: 16px;
+  font-family: var(--font); font-size: 11px; color: var(--amber-dim); letter-spacing: 3px;
+}
+#compass-wrap {
+  position: absolute; top: 16px; right: 16px;
+  font-family: var(--font); font-size: 11px; color: rgba(200,175,60,.35);
+  letter-spacing: 2px; text-align: right; display: flex; flex-direction: column; gap: 4px;
+}
+#player-name-hud { font-size: 10px; color: rgba(200,175,60,.25); }
+#sanity-bar-wrap {
+  position: absolute; top: 48px; right: 16px;
+  font-family: var(--font); font-size: 9px; color: rgba(200,175,60,.25); letter-spacing: 2px;
+}
+#sanity-label { margin-bottom: 4px; text-align: right; }
+#sanity-bar { width: 80px; height: 1px; background: rgba(200,175,60,.1); margin-left: auto; }
+#sanity-fill { height: 1px; background: var(--amber-dim); width: 100%; transition: width .5s; }
+
+/* ECHO */
+#echo-box {
+  position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+  width: min(480px, 85%);
+  background: rgba(8,6,0,.9); border: .5px solid rgba(200,175,60,.15);
+  border-left: 2px solid rgba(200,155,30,.4);
+  padding: 12px 16px; font-family: var(--font); font-size: 13px;
+  color: rgba(200,170,60,.85); line-height: 1.7;
+  opacity: 0; transition: opacity .6s; pointer-events: none;
+}
+#echo-label { font-size: 9px; color: rgba(200,175,60,.3); letter-spacing: 3px; margin-bottom: 4px; }
+#echo-author { font-size: 10px; color: rgba(200,155,30,.4); letter-spacing: 2px; margin-bottom: 6px; }
+
+/* CROSSHAIR */
+#crosshair {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 18px; color: rgba(200,175,60,.3); pointer-events: none; user-select: none;
+}
+
+/* CONTROLS BAR */
+#controls-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 6px; padding: 8px 12px;
+  background: rgba(0,0,0,.8); border-top: .5px solid rgba(200,175,60,.1);
+}
+#thought-in {
+  flex: 1; background: rgba(200,175,60,.04); border: .5px solid rgba(200,175,60,.2);
+  color: var(--amber); font-family: var(--font); font-size: 12px;
+  padding: 8px 12px; outline: none;
+}
+#thought-in:focus { border-color: rgba(200,175,60,.45); }
+#thought-in::placeholder { color: rgba(200,175,60,.2); }
+.cbtn {
+  font-family: var(--font); font-size: 11px; padding: 8px 14px;
+  background: transparent; border: .5px solid rgba(200,175,60,.25);
+  color: var(--amber-dim); cursor: pointer; white-space: nowrap; letter-spacing: 1px;
+  transition: all .15s;
+}
+.cbtn:hover { background: rgba(200,175,60,.07); border-color: var(--amber-dim); }
+.cbtn:disabled { opacity: .3; cursor: not-allowed; }
+
+/* MOBILE BUTTONS */
+#mobile-btns {
+  display: none; position: absolute; bottom: 56px; right: 12px;
+  flex-direction: column; gap: 4px;
+}
+.mbtn {
+  width: 46px; height: 46px; background: rgba(0,0,0,.7);
+  border: .5px solid rgba(200,175,60,.2); color: var(--amber-dim);
+  font-size: 18px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+
+/* OVERLAYS */
+#hint-overlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--font); font-size: 13px; color: var(--amber-dim);
+  text-align: center; letter-spacing: 2px; line-height: 2.2; pointer-events: none;
+}
+#hint-overlay span { font-size: 10px; color: rgba(200,175,60,.3); }
+#vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.7) 100%);
+}
+#flicker-overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  background: rgba(210,180,20,.04); opacity: 0;
+}
+
+@media (max-width: 600px) {
+  #mobile-btns { display: flex; }
+  #hint-overlay { display: none; }
+}
