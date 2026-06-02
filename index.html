@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BACKROOMS — nível 0</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loading-screen">
+    <div id="loading-inner">
+      <div id="loading-title">BACKROOMS</div>
+      <div id="loading-sub">nível 0 · corredor infinito</div>
+      <div id="loading-bar-wrap"><div id="loading-bar"></div></div>
+      <div id="loading-status">inicializando...</div>
+    </div>
+  </div>
+
+  <div id="name-screen">
+    <div id="name-inner">
+      <div class="ns-title">você acordou aqui.</div>
+      <div class="ns-sub">como te chamavam?</div>
+      <input id="name-input" type="text" placeholder="seu nome ou apelido..." maxlength="24" autocomplete="off">
+      <button id="name-btn" onclick="startGame()">ENTRAR</button>
+      <div class="ns-warn">a mente vai te ler.<br>seus pensamentos vão mudar.</div>
+    </div>
+  </div>
+
+  <div id="game" style="display:none">
+    <canvas id="c"></canvas>
+
+    <div id="hud">
+      <div id="coords">SALA ···</div>
+      <div id="compass-wrap">
+        <span id="compass">N</span>
+        <span id="player-name-hud"></span>
+      </div>
+      <div id="sanity-bar-wrap">
+        <div id="sanity-label">SANIDADE</div>
+        <div id="sanity-bar"><div id="sanity-fill"></div></div>
+      </div>
+    </div>
+
+    <div id="echo-box">
+      <div id="echo-label">// ECO DETECTADO</div>
+      <div id="echo-author"></div>
+      <div id="echo-text"></div>
+    </div>
+
+    <div id="crosshair">+</div>
+
+    <div id="controls-bar">
+      <input id="thought-in" type="text" placeholder="deixe um pensamento nas paredes..." maxlength="120" autocomplete="off">
+      <button class="cbtn" id="btn-grave" onclick="leaveThought()">GRAVAR</button>
+      <button class="cbtn" id="btn-noclip" onclick="triggerNoclip()">NOCLIP</button>
+    </div>
+
+    <div id="mobile-btns">
+      <div class="mbtn" id="mb-f">↑</div>
+      <div style="display:flex;gap:5px">
+        <div class="mbtn" id="mb-l">←</div>
+        <div class="mbtn" id="mb-r">→</div>
+      </div>
+      <div class="mbtn" id="mb-b">↓</div>
+    </div>
+
+    <div id="hint-overlay">
+      CLIQUE PARA TRAVAR O MOUSE<br>
+      <span>WASD · SETAS · MOVER</span>
+    </div>
+
+    <div id="vignette"></div>
+    <div id="flicker-overlay"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
